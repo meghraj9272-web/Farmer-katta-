@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Farmer Katta</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#f4f8f4;
+  color:#1d1d1d;
+}
+
+.screen{
+  display:none;
+  min-height:100vh;
+  padding-bottom:80px;
+}
+
+.active{
+  display:block;
+}
+
+/* SPLASH */
+#splash{
+  background:linear-gradient(160deg,#eaffed,#ffffff);
+  text-align:center;
+  padding:90px 25px 30px;
+}
+
+.logo{
+  width:110px;
+  height:110px;
+  border-radius:50%;
+  background:#16833b;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:auto;
+  font-size:55px;
+  box-shadow:0 10px 30px #16833b55;
+}
+
+.splash-title{
+  margin-top:25px;
+  font-size:34px;
+  font-weight:bold;
+  color:#16833b;
+}
+
+.splash-sub{
+  margin-top:10px;
+  color:#666;
+  font-size:16px;
+}
+
+.main-btn{
+  border:none;
+  background:#16833b;
+  color:white;
+  padding:15px 28px;
+  border-radius:30px;
+  font-size:16px;
+  margin-top:35px;
+  cursor:pointer;
+}
+
+/* LOGIN */
+.auth{
+  padding:50px 22px;
+}
+
+.auth h1{
+  color:#16833b;
+  font-size:30px;
+  margin-bottom:10px;
+}
+
+.auth p{
+  color:#777;
+  margin-bottom:30px;
+}
+
+.input{
+  width:100%;
+  padding:15px;
+  border:1px solid #ddd;
+  border-radius:14px;
+  margin-bottom:15px;
+  font-size:16px;
+}
+
+.auth-btn{
+  width:100%;
+  padding:15px;
+  border:none;
+  border-radius:14px;
+  background:#16833b;
+  color:white;
+  font-size:16px;
+}
+
+.google{
+  margin-top:12px;
+  background:white;
+  color:#222;
+  border:1px solid #ddd;
+}
+
+/* HEADER */
+.header{
+  background:#16833b;
+  color:white;
+  padding:20px;
+  border-radius:0 0 25px 25px;
+}
+
+.header h2{
+  font-size:24px;
+}
+
+.search{
+  margin-top:15px;
+  width:100%;
+  padding:13px;
+  border:none;
+  border-radius:14px;
+  outline:none;
+}
+
+/* CONTENT */
+.content{
+  padding:18px;
+}
+
+.welcome{
+  background:white;
+  padding:20px;
+  border-radius:20px;
+  box-shadow:0 4px 15px #00000012;
+  margin-bottom:15px;
+}
+
+.weather{
+  background:#e9f8ed;
+  padding:20px;
+  border-radius:20px;
+  margin-bottom:15px;
+}
+
+.weather h2{
+  color:#16833b;
+}
+
+/* FEATURE GRID */
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.card{
+  background:white;
+  padding:18px;
+  border-radius:18px;
+  box-shadow:0 3px 12px #00000010;
+  cursor:pointer;
+}
+
+.card-icon{
+  font-size:32px;
+  margin-bottom:10px;
+}
+
+.card h3{
+  font-size:16px;
+}
+
+.card p{
+  color:#777;
+  font-size:13px;
+  margin-top:5px;
+}
+
+/* SECTION */
+.section{
+  padding:20px;
+}
+
+.section-header{
+  background:#16833b;
+  color:white;
+  padding:20px;
+  border-radius:0 0 22px 22px;
+}
+
+.back{
+  border:none;
+  background:white;
+  color:#16833b;
+  padding:8px 14px;
+  border-radius:20px;
+  margin-bottom:15px;
+}
+
+.box{
+  background:white;
+  margin-top:15px;
+  padding:20px;
+  border-radius:18px;
+  box-shadow:0 3px 12px #00000010;
+}
+
+/* AI */
+.chat{
+  min-height:300px;
+}
+
+.message{
+  padding:12px;
+  border-radius:15px;
+  margin:10px 0;
+  background:#eaf7ed;
+}
+
+.user-message{
+  background:#16833b;
+  color:white;
+  margin-left:30px;
+}
+
+.chat-input{
+  display:flex;
+  gap:8px;
+  margin-top:15px;
+}
+
+.chat-input input{
+  flex:1;
+  padding:13px;
+  border:1px solid #ddd;
+  border-radius:20px;
+}
+
+.chat-input button{
+  width:50px;
+  border:none;
+  border-radius:50%;
+  background:#16833b;
+  color:white;
+}
+
+/* SCANNER */
+.camera{
+  height:230px;
+  background:#edf6ef;
+  border:2px dashed #16833b;
+  border-radius:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  font-size:55px;
+}
+
+.upload{
+  margin-top:15px;
+}
+
+.result{
+  display:none;
+  background:#eaf7ed;
+  margin-top:15px;
+  padding:18px;
+  border-radius:18px;
+}
+
+/* REELS */
+.reel{
+  height:500px;
+  background:#222;
+  color:white;
+  border-radius:20px;
+  margin-top:15px;
+  display:flex;
+  align-items:flex-end;
+  padding:20px;
+}
+
+.reel-text{
+  font-size:18px;
+}
+
+/* PROFILE */
+.profile{
+  text-align:center;
+}
+
+.profile-logo{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  background:#16833b;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:40px;
+  margin:auto;
+}
+
+/* BOTTOM NAV */
+.bottom{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:70px;
+  background:white;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  box-shadow:0 -3px 15px #00000015;
+  z-index:100;
+}
+
+.nav-btn{
+  border:none;
+  background:none;
+  font-size:12px;
+  color:#666;
+  cursor:pointer;
+}
+
+.nav-icon{
+  display:block;
+  font-size:22px;
+  margin-bottom:3px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- SPLASH -->
+<section id="splash" class="screen active">
+
+  <div class="logo">🌾</div>
+
+  <h1 class="splash-title">FARMER KATTA</h1>
+
+  <p class="splash-sub">
+    शेतकऱ्यांचा आपला डिजिटल कट्टा
+  </p>
+
+  <button class="main-btn" onclick="show('login')">
+    🌿 सुरुवात करा
+  </button>
+
+</section>
+
+
+<!-- LOGIN -->
+<section id="login" class="screen">
+
+  <div class="auth">
+
+    <h1>Welcome 👋</h1>
+
+    <p>Farmer Katta मध्ये Login करा</p>
+
+    <input
+      class="input"
+      id="mobile"
+      type="tel"
+      placeholder="Mobile Number"
+    >
+
+    <button class="auth-btn" onclick="login()">
+      Get OTP
+    </button>
+
+    <button class="auth-btn google" onclick="login()">
+      🔵 Continue with Google
+    </button>
+
+    <br><br>
+
+    <p style="text-align:center">
+      नवीन शेतकरी?
+      <b style="color:#16833b">Create Account</b>
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- HOME -->
+<section id="home" class="screen">
+
+  <div class="header">
+
+    <h2>🌾 Farmer Katta</h2>
+
+    <p>शेतकऱ्यांचा डिजिटल कट्टा</p>
+
+    <input
+      class="search"
+      placeholder="🔍 Search करा..."
+    >
+
+  </div>
+
+  <div class="content">
+
+    <div class="welcome">
+
+      <h2>नमस्कार शेतकरी मित्रा! 👨‍🌾</h2>
+
+      <p style="margin-top:8px;color:#777">
+        आजची शेतीची माहिती एका ठिकाणी मिळवा.
+      </p>
+
+    </div>
+
+
+    <div class="weather">
+
+      <h2>🌦️ आजचे हवामान</h2>
+
+      <h1 style="margin-top:8px">28°C</h1>
+
+      <p>हवामानाची माहिती</p>
+
+    </div>
+
+
+    <div class="grid">
+
+      <div class="card" onclick="show('ai')">
+        <div class="card-icon">🤖</div>
+        <h3>AI Assistant</h3>
+        <p>AI ला शेतीचे प्रश्न विचारा</p>
+      </div>
+
+      <div class="card" onclick="show('scanner')">
+        <div class="card-icon">📷</div>
+        <h3>Crop Scanner</h3>
+        <p>पिकाची तपासणी करा</p>
+      </div>
+
+      <div class="card" onclick="show('market')">
+        <div class="card-icon">📈</div>
+        <h3>Market Price</h3>
+        <p>बाजारभाव पहा</p>
+      </div>
+
+      <div class="card" onclick="show('schemes')">
+        <div class="card-icon">🏛️</div>
+        <h3>Government</h3>
+        <p>शासकीय योजना</p>
+      </div>
+
+    </div>
+
+
+    <div class="box">
+
+      <h3>🌱 आजची शेती टिप</h3>
+
+      <p style="margin-top:10px;color:#666">
+        पिकांची नियमित पाहणी करा आणि हवामानानुसार
+        शेतीचे नियोजन करा.
+      </p>
+
+    </div>
+
+  </div>
+
+  <div class="bottom">
+
+    <button class="nav-btn" onclick="show('home')">
+      <span class="nav-icon">🏠</span>Home
+    </button>
+
+    <button class="nav-btn" onclick="show('reels')">
+      <span class="nav-icon">🎬</span>Reels
+    </button>
+
+    <button class="nav-btn" onclick="alert('Post feature demo')">
+      <span class="nav-icon">➕</span>Post
+    </button>
+
+    <button class="nav-btn" onclick="show('alerts')">
+      <span class="nav-icon">🔔</span>Alerts
+    </button>
+
+    <button class="nav-btn" onclick="show('profile')">
+      <span class="nav-icon">👤</span>Profile
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- AI -->
+<section id="ai" class="screen">
+
+  <div class="section-header">
+
+    <button class="back" onclick="show('home')">← Back</button>
+
+    <h2>🤖 AI Assistant</h2>
+
+    <p>शेतीबद्दल AI ला विचारा</p>
+
+  </div>
+
+  <div class="section">
+
+    <div class="box chat" id="chat">
+
+      <div class="message">
+        नमस्कार! 👋 मी Farmer Katta AI Assistant आहे.
+      </div>
+
+    </div>
+
+    <div class="chat-input">
+
+      <input
+        id="question"
+        placeholder="तुमचा प्रश्न लिहा..."
+      >
+
+      <button onclick="askAI()">➤</button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- SCANNER -->
+<section id="scanner" class="screen">
+
+  <div class="section-header">
+
+    <button class="back" onclick="show('home')">← Back</button>
+
+    <h2>📷 Crop Scanner</h2>
+
+    <p>AI पिक तपासणी</p>
+
+  </div>
+
+  <div class="section">
+
+    <div class="box">
+
+      <div class="camera">
+        📷
+        <small style="font-size:14px">
+          पिकाचा फोटो निवडा
+        </small>
+      </div>
+
+      <input
+        class="upload"
+        type="file"
+        accept="image/*"
+        onchange="previewImage(event)"
+      >
+
+      <img
+        id="cropImage"
+        style="width:100%;margin-top:15px;border-radius:15px;display:none"
+      >
+
+      <button
+        class="auth-btn"
+        style="margin-top:15px"
+        onclick="scanCrop()"
+      >
+        🔍 Scan Crop
+      </button>
+
+      <div id="scanResult" class="result">
+
+        <h3>🌱 Demo Result</h3>
+
+        <p style="margin-top:8px">
+          पिकाची तपासणी पूर्ण झाली.
+          Real AI disease detection जोडण्यासाठी AI model/API आवश्यक आहे.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- MARKET -->
+<section id="market" class="screen">
+
+  <div class="section-header">
+
+    <button class="back" onclick="show('home')">← Back</button>
+
+    <h2>📈 Market Price</h2>
+
+    <p>आजचे बाजारभाव</p>
+
+  </div>
+
+  <div class="section">
+
+    <div class="box">
+      <h3>🌾 सोयाबीन</h3>
+      <p style="margin-top:8px">₹ 4,500 / क्विंटल</p>
+    </div>
+
+    <div class="box">
+      <h3>🌽 मका</h3>
+      <p style="margin-top:8px">₹ 2,200 / क्विंटल</p>
+    </div>
+
+    <div class="box">
+      <h3>🌿 तूर</h3>
+      <p style="margin-top:8px">₹ 7,000 / क्विंटल</p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- SCHEMES -->
+<section id="schemes" class="screen">
+
+  <div class="section-header">
+
+    <button class="back" onclick="show('home')">← Back</button>
+
+    <h2>🏛️ Government Schemes</h2>
+
+    <p>शेतकऱ्यांसाठी योजना</p>
+
+  </div>
+
+  <div class="section">
+
+    <div class="box">
+      <h3>🌾 शेतकरी योजना</h3>
+      <p style="margin-top:8px">
+        विविध सरकारी योजनांची माहिती येथे पाहता येईल.
+      </p>
+    </div>
+
+    <div class="box">
+      <h3>💰 आर्थिक मदत</h3>
+      <p style="margin-top:8px">
+        पात्रतेनुसार उपलब्ध योजनांची माहिती.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- REELS -->
+<section id="reels" class="screen">
+
+  <div class="section-header">
+
+    <button class="back" onclick="show('home')">← Back</button>
+
+    <h2>🎬 Farmer Reels</h2>
+
+    <p>शेतकऱ्यांचे व्हिडिओ</p>
+
+  </div>
+
+  <div class="section">
+
+    <div class="reel">
+      <div class="reel-text">
+        🌾 शेतीतील आजचा अनुभव<br><br>
+        ❤️ Like &nbsp; 💬 Comment &nbsp; ↗ Share
+      </div>
+    </div>
+
+    <div class="reel">
+      <div class="reel-text">
+        🚜 आधुनिक शेती टिप्स<br><br>
+        ❤️ Like &nbsp; 💬 Comment &nbsp; ↗ Share
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ALERTS -->
+<section id="alerts" class="screen">
+
+  <div class="section-header">
+
+    <button class="back" onclick="show('home')">← Back</button>
+
+    <h2>🔔 Notifications</h2>
+
+    <p>तुमच्या सूचना</p>
+
+  </div>
+
+  <div class="section">
+
+    <div class="box">
+      🔔 नवीन farming tip उपलब्ध आहे.
+    </div>
+
+    <div class="box">
+      🌦️ हवामानाची माहिती अपडेट झाली.
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- PROFILE -->
+<section id="profile" class="screen">
+
+  <div class="section-header">
+
+    <button class="back" onclick="show('home')">← Back</button>
+
+    <h2>👤 Profile</h2>
+
+  </div>
+
+  <div class="section">
+
+    <div class="box profile">
+
+      <div class="profile-logo">👨‍🌾</div>
+
+      <h2 style="margin-top:15px">
+        Farmer
+      </h2>
+
+      <p style="color:#777;margin-top:5px">
+        Farmer Katta Member
+      </p>
+
+    </div>
+
+    <div class="box">
+      👥 Followers: 0
+    </div>
+
+    <div class="box">
+      📝 My Posts
+    </div>
+
+    <div class="box">
+      ⚙️ Settings
+    </div>
+
+  </div>
+
+</section>
+
+
+<script>
+
+function show(id){
+
+  document.querySelectorAll(".screen")
+  .forEach(screen=>{
+    screen.classList.remove("active");
+  });
+
+  document.getElementById(id)
+  .classList.add("active");
+
+  window.scrollTo(0,0);
+}
+
+
+function login(){
+
+  let mobile=document.getElementById("mobile").value;
+
+  if(mobile.length < 10){
+
+    alert("कृपया योग्य Mobile Number टाका.");
+
+    return;
+  }
+
+  alert("Demo OTP Login Successful! ✅");
+
+  show("home");
+}
+
+
+function askAI(){
+
+  let input=document.getElementById("question");
+
+  let question=input.value.trim();
+
+  if(question===""){
+    return;
+  }
+
+  let chat=document.getElementById("chat");
+
+  chat.innerHTML += `
+    <div class="message user-message">
+      ${question}
+    </div>
+  `;
+
+  input.value="";
+
+  setTimeout(()=>{
+
+    chat.innerHTML += `
+      <div class="message">
+        👍 तुमचा प्रश्न मिळाला.<br><br>
+        Real AI जोडण्यासाठी पुढे AI API आणि backend जोडता येईल.
+      </div>
+    `;
+
+    chat.scrollTop=chat.scrollHeight;
+
+  },700);
+
+}
+
+
+function previewImage(event){
+
+  let image=document.getElementById("cropImage");
+
+  image.src=URL.createObjectURL(
+    event.target.files[0]
+  );
+
+  image.style.display="block";
+
+}
+
+
+function scanCrop(){
+
+  let image=document.getElementById("cropImage");
+
+  if(image.style.display==="none"){
+
+    alert("आधी पिकाचा फोटो निवडा.");
+
+    return;
+  }
+
+  document.getElementById("scanResult")
+  .style.display="block";
+
+}
+
+</script>
+
+</body>
+</html>
